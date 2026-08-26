@@ -1,5 +1,6 @@
-## Testing Log
+## Activity Log
 
+## Testing Log
 ### 2026-08-25 - Created Scripts 
 - Config file created
 - Test script for config & extractor created
@@ -16,3 +17,8 @@
 - ✅ 80 test records generated (10 per camera)
 - ✅ No ffprobe required for basic stats
 - 📊 Sample output: saved in folder /home/tk/Documents/Video_pipeline/data as test_output & test_result
+
+### 2026-08-26 - Version Tracking - GIT
+- Created project on Git account
+- Made the first push
+- 
