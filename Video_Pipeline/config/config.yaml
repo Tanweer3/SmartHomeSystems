@@ -1,0 +1,91 @@
+# Video Metadata Extraction Configuration
+# Matches cam_recorder.py setup
+# This is Run on Home - PI ONLY
+
+video_sources:
+  # Base path from cam_recorder.py
+  base_path: "/media/tk/TkUSB/Cam_feed"  # RPI5 path
+  # base_path: "/Volumes/TkUSB/Cam_feed"  # For Mac laptop (adjust as needed)
+
+  # Cameras from cam_recorder.py - matched exactly
+  cameras:
+    - name: "Out_Cam1"
+      path: "Out_Cam1"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.65:554/stream1"
+      mode: "motion"  # From cam_recorder.py: 2 = motion
+    - name: "Out_Cam2"
+      path: "Out_Cam2"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.66:554/stream1"
+      mode: "motion"
+    - name: "Cam3"
+      path: "Cam3"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.67:554/stream1"
+      mode: "motion"
+    - name: "Cam3.2"
+      path: "Cam3.2"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.68:554/stream1"
+      mode: "motion"
+    - name: "Cam4"
+      path: "Cam4"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.69:554/stream1"
+      mode: "motion"
+    - name: "Cam5"
+      path: "Cam5"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.70:554/stream1"
+      mode: "motion"
+    - name: "Hall_Cam"
+      path: "Hall_Cam"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.71:554/stream1"
+      mode: "motion"
+    - name: "Hall_Cam2"
+      path: "Hall_Cam2"
+      rtsp_url: "rtsp://Tech32:Accesshallcam@192.168.0.72:554/stream1"
+      mode: "motion"
+
+output:
+  # Where metadata JSON files will be stored on RPI5
+  local_json: "/media/tk/TkUSB/Cam_feed/metadata"
+
+  # For testing on laptop
+  local_test: "./data/test_output"
+
+  # Databricks staging (DBFS path for free tier)
+  databricks_staging: "/FileStore/video_metadata"
+
+  # Format options: jsonl, parquet, csv
+  format: "jsonl"
+
+processing:
+  # How many files to process in one batch
+  batch_size: 100
+
+  # Only process files from last N days (to avoid re-processing old files)
+  max_age_days: 7
+
+  # Skip files smaller than this (corrupt or incomplete)
+  min_file_size_bytes: 1024  # 1KB
+
+  # Video file extensions to look for (matches cam_recorder.py output)
+  video_extensions:
+    - ".mp4"
+
+  # Should we verify file integrity with ffprobe?
+  verify_integrity: true
+
+# Status tracking (matches cam_recorder.py)
+status:
+  # Path where cam_recorder.py writes status
+  status_file: "/tmp/cam_recorder_status"
+
+  # How often to check status (matches CHECK_INTERVAL)
+  check_interval: 5
+
+# Databricks configuration (for free tier)
+databricks:
+  catalog: "default"
+  schema: "video_telemetry"
+  tables:
+    bronze: "bronze_video_metadata"
+    silver: "silver_video_metadata"
+    gold: "gold_camera_stats"
+    dimension: "dim_camera_status"
