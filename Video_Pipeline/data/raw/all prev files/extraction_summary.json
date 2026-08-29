@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-08-27T17:06:32.002733",
+  "stats": {
+    "processed": 38,
+    "errors": 0,
+    "skipped": 42,
+    "total_files": 10876,
+    "start_time": "2026-08-27 16:56:16.176667"
+  },
+  "config": {
+    "video_sources": {
+      "base_path": "/media/tk/TkUSB/Cam_feed",
+      "cameras": [
+        {
+          "name": "Out_cam1",
+          "path": "Out_cam1"
+        },
+        {
+          "name": "Out_cam2",
+          "path": "Out_cam2"
+        },
+        {
+          "name": "Cam3",
+          "path": "Cam3"
+        },
+        {
+          "name": "Cam3.2",
+          "path": "Cam3.2"
+        },
+        {
+          "name": "Cam4",
+          "path": "Cam4"
+        },
+        {
+          "name": "Cam5",
+          "path": "Cam5"
+        },
+        {
+          "name": "Hall_Cam",
+          "path": "Hall_Cam"
+        },
+        {
+          "name": "Hall_Cam2",
+          "path": "Hall_Cam2"
+        }
+      ]
+    },
+    "output": {
+      "local_json": "/media/tk/TkUSB/Cam_feed/metadata",
+      "local_test": "./data/test_output",
+      "format": "jsonl"
+    },
+    "processing": {
+      "batch_size": 100,
+      "max_age_days": 7,
+      "min_file_size_bytes": 1024,
+      "video_extensions": [
+        ".mp4"
+      ],
+      "verify_integrity": true
+    },
+    "status": {
+      "status_file": "/tmp/cam_recorder_status",
+      "check_interval": 5
+    },
+    "databricks": {
+      "catalog": "default",
+      "schema": "video_telemetry"
+    }
+  }
+}
